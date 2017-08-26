@@ -39,7 +39,8 @@ namespace SpotifySound
                         Console.WriteLine("args[0]:" + args[0] + ";args[1]:" + args[1] + "args[2]:" + args[2] + ";");
 
                         var curVol = (int)VolumeMixer.GetApplicationVolume(pID);
-                        for (int i = 1; i <= int.Parse(args[1]); i++) {
+                        var diff = curVol - int.Parse(args[1]);
+                        for (int i = 1; i <= diff; i++) {
                             VolumeMixer.SetApplicationVolume(pID, curVol - i);
                             System.Threading.Thread.Sleep(10);
                         }
@@ -47,7 +48,8 @@ namespace SpotifySound
                         Console.WriteLine("args[0]:" + args[0] + ";args[1]:" + args[1] + "args[2]:" + args[2] + ";");
 
                         var curVol = (int)VolumeMixer.GetApplicationVolume(pID);
-                        for (int i = 1; i <= int.Parse(args[1]); i++)
+                        var diff = curVol + int.Parse(args[1]);
+                        for (int i = 1; i <= diff; i++)
                         {
                             VolumeMixer.SetApplicationVolume(pID, curVol + i);
                             System.Threading.Thread.Sleep(10);
