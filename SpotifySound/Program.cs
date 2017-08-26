@@ -30,15 +30,38 @@ namespace SpotifySound
             if (pID == 0)
                 return;
 
+            Console.WriteLine("appid:" + hWnd + ";");
+            Console.WriteLine("userVolume:" + VolumeMixer.GetApplicationVolume(pID) + ";");
+
             if (args.Length > 1) {
-                VolumeMixer.SetApplicationVolume(pID, float.Parse(args[1]));
-                Console.WriteLine("args[0]:" + args[0] + ";args[1]:" + args[1]);
+                if (args.Length > 2) {
+                    if (args[2] == "1") {
+                        Console.WriteLine("args[0]:" + args[0] + ";args[1]:" + args[1] + "args[2]:" + args[2] + ";");
+
+                        var curVol = (int)VolumeMixer.GetApplicationVolume(pID);
+                        for (int i = 1; i <= int.Parse(args[1]); i++) {
+                            VolumeMixer.SetApplicationVolume(pID, curVol - i);
+                            System.Threading.Thread.Sleep(10);
+                        }
+                    } else if (args[2] == "2") {
+                        Console.WriteLine("args[0]:" + args[0] + ";args[1]:" + args[1] + "args[2]:" + args[2] + ";");
+
+                        var curVol = (int)VolumeMixer.GetApplicationVolume(pID);
+                        for (int i = 1; i <= int.Parse(args[1]); i++)
+                        {
+                            VolumeMixer.SetApplicationVolume(pID, curVol + i);
+                            System.Threading.Thread.Sleep(10);
+                        }
+                    }
+                } else {
+                    VolumeMixer.SetApplicationVolume(pID, float.Parse(args[1]));
+                    Console.WriteLine("args[0]:" + args[0] + ";args[1]:" + args[1]);
+                }
+
+                Console.WriteLine("appVolume:" + VolumeMixer.GetApplicationVolume(pID) + ";");
             } else {
                 Console.WriteLine("args[0]:" + args[0] + ";");
             }
-
-            Console.WriteLine("appid:" + hWnd + ";");
-            Console.WriteLine("volume:" + VolumeMixer.GetApplicationVolume(pID) + ";");
         }
     }
 }
